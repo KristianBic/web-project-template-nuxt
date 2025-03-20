@@ -1,0 +1,85 @@
+@use "./mixins" as mix;
+@use "./reset";
+@use "./variables";
+
+*,
+*::before,
+*::after {
+  font-family: $font-family-base;
+  outline-offset: 2px;
+  scroll-behavior: smooth;
+}
+
+html {
+  color-scheme: dark;
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @include mix.flex(column);
+  margin: 0;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $text-color-light;
+  background: $background-color-dark;
+  overflow-x: hidden;
+  overflow-y: auto;
+  //overflow: clip;
+  //maybe use overflow: clip; namiesto hidden and auto
+  overscroll-behavior-y: none;
+}
+
+code,
+pre {
+  font-family: $font-family-mono;
+  font-size: $font-size-small;
+  background-color: $background-color-lighter;
+  border-radius: $border-radius-base;
+  padding: $space-xxs $space-xs;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $border-color-base;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(191, 206, 217, 0.2);
+  border-radius: 10px;
+  transition: background $transition-speed-medium ease, transform $transition-speed-fast ease;
+
+  &:hover {
+    background: rgba(191, 206, 217, 0.4);
+    transform: scale(1.1);
+  }
+}
+
+// Firefox Scrollbar Styling
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(191, 206, 217, 0.2) $border-color-base;
+}
+
+// Accessibility Improvements
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Dark Mode Preservation
+@media (prefers-color-scheme: dark) {
+  body {
+    color-scheme: dark;
+  }
+}
